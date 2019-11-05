@@ -7,34 +7,91 @@ export default class Customers extends Component {
 
   constructor(props) {
     super(props)
-    this.state = {symbol: ''};
+    this.state = {symbol: '', symbolList: [], resultList: [], allSymbols: []};
 
     this.handleChange=this.handleChange.bind(this);
     this.handleSubmit=this.handleSubmit.bind(this);
     this.handleDelete=this.handleDelete.bind(this);
   }
 
-  componentDidMount(){
-    this.createElements();
+  getTweetData(arr) {
+
+    let resultList=[];
+    let allSymbols=[];
+
+    for(let i=0;i<arr.length;i++){
+      axios.get('https://api.stocktwits.com/api/2/streams/symbol/'+arr[i]+'.json').then((response) => {
+        let finalElem=this.createElements(response.data.messages, arr[i]);
+        resultList.push(finalElem[0]);
+        allSymbols.push(finalElem[1]);
+        
+        this.setState({
+          resultList: resultList, 
+          allSymbols: allSymbols
+        });
+      
+      });
+    }
+  }
+
+  createElements(data, symbol){
+
+    let resultList=[];
+    let allSymbols=[];
+
+    allSymbols.push(
+      <div>
+      <button type="button" class="btn btn-secondary" key="deleteButton" onClick={this.handleDelete.bind(this, symbol)}> {symbol+' (Total tweets: '+data.length+')'}</button></div>
+
+      );
+
+    let tempList=data.map((tweet) =>
+      {
+        return(
+
+          <div>
+          <div className="customerdetails">
+          {
+            <Panel bsStyle="info" key={tweet.id} className="centeralign">
+                <Panel.Heading>
+                  <Panel.Title componentClass="h3">{tweet.user.name}</Panel.Title>
+                </Panel.Heading>
+                <Panel.Body>
+                  <p>{tweet.body}</p>
+                  <p>{tweet.created_at}</p>
+                </Panel.Body>
+                </Panel>
+            }
+            </div>
+            </div>
+            
+          );
+      });
+    resultList=[...tempList, ...resultList];
+
+    return [resultList, allSymbols];
+
   }
 
   handleChange(event){
-    event.preventDefault();
-    this.setState({symbol: event.target.value.toUpperCase()});
+    this.setState({
+      symbol: event.target.value.toUpperCase()
+    });
   }
 
   handleSubmit(event){
-
-    document.getElementById("symbolForm").reset();
-    this.setState({symbolList: this.state.symbol.replace(/ /g,'').split(',')});
-    let listtemp = this.getTweetData(this.state.symbol.replace(/ /g,'').split(','));
-    this.setState({tweetList: listtemp});
-    
-    let finalElem = this.createElements();
-
-    this.setState({resultList: finalElem[0], allSymbols: finalElem[1]});
     event.preventDefault();
+
+    let symbolList = this.state.symbol.replace(/ /g,'').split(',');
+
+    this.getTweetData(symbolList);
+
+    this.setState({
+      symbol: '',
+      symbolList: symbolList,
+    });
   }
+
 
   handleDelete(item){
     let newSymbol=[];
@@ -43,68 +100,8 @@ export default class Customers extends Component {
         newSymbol.push(this.state.symbolList[i]);
       }
     }
-    this.state.symbolList=newSymbol;
-    this.state.tweetList=this.getTweetData(this.state.symbolList);
 
-    let finalElem = this.createElements();
-
-    this.setState({resultList: finalElem[0], allSymbols: finalElem[1]});
-  }
-
-  getTweetData(arr) {
-    let dataList=[];
-
-    for(let i=0;i<arr.length;i++){
-      axios.get('https://api.stocktwits.com/api/2/streams/symbol/'+arr[i]+'.json').then((response) => {
-        dataList.push(response.data.messages);
-      })
-    }
-    return dataList;
-  };
-
-  createElements(){
-    let resultList=[];
-    let allSymbols=[];
-
-    if(this.state.tweetList){
-
-      for (let i=0;i< this.state.tweetList.length;i++){
-
-        allSymbols.push(
-          <div>
-          <button type="button" class="btn btn-secondary" key="deleteButton" onClick={this.handleDelete.bind(this, this.state.symbolList[i])}> {this.state.symbolList[i]+' (Total tweets: '+this.state.tweetList[i].length+')'}</button></div>
-
-          );
-
-        let tempList=this.state.tweetList[i].map((tweet) =>
-          {
-            return(
-
-              <div>
-              <div className="customerdetails">
-              {
-                <Panel bsStyle="info" key={tweet.id} className="centeralign">
-                    <Panel.Heading>
-                      <Panel.Title componentClass="h3">{tweet.user.name}</Panel.Title>
-                    </Panel.Heading>
-                    <Panel.Body>
-                      <p>{tweet.body}</p>
-                      <p>{tweet.created_at}</p>
-                    </Panel.Body>
-                    </Panel>
-                }
-                </div>
-                </div>
-                
-              );
-          });
-        resultList=[...tempList, ...resultList];        
-      }
-
-    }
-
-    return [resultList, allSymbols];
-
+    this.getTweetData(newSymbol);
   }
 
   render() {
