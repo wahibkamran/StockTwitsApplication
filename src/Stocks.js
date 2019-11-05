@@ -21,7 +21,7 @@ export default class Customers extends Component {
     let allSymbols=[];
 
     for(let i=0;i<arr.length;i++){
-      axios.get('https://api.stocktwits.com/api/2/streams/symbol/'+arr[i]+'.json').then((response) => {
+      axios.get('https://cors-anywhere.herokuapp.com/https://api.stocktwits.com/api/2/streams/symbol/'+arr[i]+'.json').then((response) => {
         let finalElem=this.createElements(response.data.messages, arr[i]);
         resultList.push(finalElem[0]);
         allSymbols.push(finalElem[1]);
