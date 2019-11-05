@@ -101,7 +101,12 @@ export default class Customers extends Component {
       }
     }
 
-    this.getTweetData(newSymbol);
+    if(newSymbol.length===0){
+      this.setState({symbol: '', symbolList: [], resultList: [], allSymbols: []});
+    }else{
+      this.setState({symbolList:newSymbol});
+      this.getTweetData(newSymbol);
+    }
   }
 
   render() {
