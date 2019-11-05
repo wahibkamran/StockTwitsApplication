@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import Panel from 'react-bootstrap/lib/Panel'
-import Button from 'react-bootstrap/lib/Button'
-import axios from 'axios'
+import Panel from 'react-bootstrap/lib/Panel';
+import Button from 'react-bootstrap/lib/Button';
+import './Stocks.css';
+import axios from 'axios';
 
 export default class Customers extends Component {
 
