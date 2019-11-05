@@ -10,10 +10,10 @@ class App extends Component {
     return (
 
       <Router basename={process.env.PUBLIC_URL}>
-        <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Stock Fetcher: StockTwits Search</h1>
+        <div class="App">
+        <header class="App-header">
+          <img src={logo} class="App-logo" alt="logo" />
+          <h1 class="App-title">Stock Fetcher: StockTwits Search</h1>
         </header>
           <Switch>
                 <Route exact path= "/" render={() => (

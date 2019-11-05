@@ -115,8 +115,15 @@ export default class Customers extends Component {
     
       <div>
       <form id="symbolForm" onSubmit={this.handleSubmit}>
-      Type in the symbol: <input type="text" value={this.state.symbol} onChange={this.handleChange}/>
-      <input type="submit" value="Submit" />
+      <div className="form-group"> 
+      <label>Type in the symbol: </label>
+      <div class="form-group mx-sm-3 mb-2">
+      <input type="text" className="form-control" value={this.state.symbol} onChange={this.handleChange}/>
+      </div>
+      </div>
+      <div className="form-group">
+          <input type="submit" value="Search!" className="btn btn-primary" />
+      </div>
       </form>
       <div>{this.state.allSymbols}</div>
       <div>{this.state.resultList}</div>
