@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import logo from './logo.jpg';
 import './App.css';
 import Stocks from './Stocks'
 import { BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
+
+
 
 
 class App extends Component {

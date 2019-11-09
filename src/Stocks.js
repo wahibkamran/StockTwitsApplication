@@ -41,12 +41,13 @@ export default class Customers extends Component {
     let allSymbols=[];
 
     allSymbols.push(
-      <div>
+      <div class="symbolButton">
       <button type="button" class="btn btn-secondary" key="deleteButton" onClick={this.handleDelete.bind(this, symbol)}> {symbol+' (Total tweets: '+data.length+')'}</button></div>
 
       );
 
     let tempList=data.map((tweet) =>
+
       {
         return(
 
@@ -55,11 +56,11 @@ export default class Customers extends Component {
           {
             <Panel bsStyle="info" key={tweet.id} className="centeralign">
                 <Panel.Heading>
-                  <Panel.Title componentClass="h3">{tweet.user.name}</Panel.Title>
+                  <Panel.Title componentClass="h3">{tweet.user.username}</Panel.Title>
                 </Panel.Heading>
                 <Panel.Body>
                   <p>{tweet.body}</p>
-                  <p>{tweet.created_at}</p>
+                  <p class="time">Posted on: {tweet.created_at.split('T')[1].replace('Z','')}, {tweet.created_at.split('T')[0]}</p>
                 </Panel.Body>
                 </Panel>
             }
@@ -113,12 +114,12 @@ export default class Customers extends Component {
   render() {
     return (
     
-      <div>
+      <div class="searchForm">
       <form id="symbolForm" onSubmit={this.handleSubmit}>
       <div className="form-group"> 
-      <label>Type in the symbol: </label>
+      <label>Type in the symbol(s): </label>
       <div class="form-group mx-sm-3 mb-2">
-      <input type="text" className="form-control" value={this.state.symbol} onChange={this.handleChange}/>
+      <input type="text" placeholder="e.g. AAPL, BABA" className="form-control" value={this.state.symbol} onChange={this.handleChange}/>
       </div>
       </div>
       <div className="form-group">
