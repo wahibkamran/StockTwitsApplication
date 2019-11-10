@@ -15,6 +15,11 @@ body{
 	color: #5F9EA0;
 }
 
+.images{
+	width:50%;
+	height: 50%;
+}
+
 .btn-secondary:hover{
     color: #ffffff;
     background-color: #ff0000;

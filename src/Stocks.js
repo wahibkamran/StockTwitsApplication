@@ -49,6 +49,12 @@ export default class Customers extends Component {
     let tempList=data.map((tweet) =>
 
       {
+        let tweetImg='';
+        if(tweet.entities.chart){
+          console.log(tweet.entities.chart)
+          tweetImg= tweet.entities.chart.original;
+        }
+       
         return(
 
           <div>
@@ -60,6 +66,7 @@ export default class Customers extends Component {
                 </Panel.Heading>
                 <Panel.Body>
                   <p>{tweet.body}</p>
+                  <object data= {tweetImg} type="image/jpg" class="images"><div></div></object>
                   <p class="time">Posted on: {tweet.created_at.split('T')[1].replace('Z','')}, {tweet.created_at.split('T')[0]}</p>
                 </Panel.Body>
                 </Panel>
