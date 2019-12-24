@@ -4,10 +4,13 @@ import Button from 'react-bootstrap/lib/Button';
 import './Stocks.css';
 import axios from 'axios';
 
+<<<<<<< HEAD
 import io from 'socket.io-client';
  
 const socket = io('http://localhost:3000/');
 
+=======
+>>>>>>> b0cdbc1e33139f42ef08f53423aac4472c00b5c7
 export default class Customers extends Component {
 
   constructor(props) {
@@ -24,6 +27,7 @@ export default class Customers extends Component {
     let resultList=[];
     let allSymbols=[];
 
+<<<<<<< HEAD
     socket.emit('click',{params: arr});
 
     socket.on('gotTweets',(response)=>{
@@ -51,13 +55,26 @@ export default class Customers extends Component {
           resultList.push(finalElem[0]);
           allSymbols.push(finalElem[1]);
         }
+=======
+    for(let i=0;i<arr.length;i++){
+      axios.get('https://cors-anywhere.herokuapp.com/https://api.stocktwits.com/api/2/streams/symbol/'+arr[i]+'.json').then((response) => {
+        let finalElem=this.createElements(response.data.messages, arr[i]);
+        resultList.push(finalElem[0]);
+        allSymbols.push(finalElem[1]);
+>>>>>>> b0cdbc1e33139f42ef08f53423aac4472c00b5c7
         
         this.setState({
           resultList: resultList, 
           allSymbols: allSymbols
         });
+<<<<<<< HEAD
     });
   */
+=======
+      
+      });
+    }
+>>>>>>> b0cdbc1e33139f42ef08f53423aac4472c00b5c7
   }
 
   createElements(data, symbol){
@@ -76,6 +93,10 @@ export default class Customers extends Component {
       {
         let tweetImg='';
         if(tweet.entities.chart){
+<<<<<<< HEAD
+=======
+          console.log(tweet.entities.chart)
+>>>>>>> b0cdbc1e33139f42ef08f53423aac4472c00b5c7
           tweetImg= tweet.entities.chart.original;
         }
        
