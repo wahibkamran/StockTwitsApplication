@@ -9,11 +9,8 @@
     "react-dom": "^16.11.0",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
-<<<<<<< HEAD
     "socket.io": "^2.3.0",
     "socket.io-client": "^2.3.0",
-=======
->>>>>>> b0cdbc1e33139f42ef08f53423aac4472c00b5c7
     "yarn": "^1.19.1"
   },
   "scripts": {
