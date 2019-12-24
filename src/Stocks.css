@@ -1,0 +1,38 @@
+body{
+	font-size: 1.5em;
+}
+
+.searchForm{
+	margin: 1%;
+}
+
+.symbolButton{
+	display: inline-block;
+	margin: 1%;	
+}
+
+.time{
+	color: #5F9EA0;
+}
+
+.images{
+	width:50%;
+	height: 50%;
+}
+
+.btn-secondary:hover{
+    color: #ffffff;
+    background-color: #ff0000;
+    border-color: #ff0000;
+}
+
+.form-group{
+	display: inline;
+	margin: 1%;
+}
+
+.form-control{
+	display: inline;
+	text-align: center;
+	width: 30%;
+}
